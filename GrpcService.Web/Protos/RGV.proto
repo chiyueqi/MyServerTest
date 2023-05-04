@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcService.Web";
+ 
+// The greeting service definition.
+service RGVDeal {
+  // Sends a greeting  
+  rpc RGVMove (RGVMoveRequest) returns (RGVCommonReply);
+   rpc RGVToMove (stream RGVMoveRequest) returns (stream RGVCommonReply);
+
+    rpc GetRgvWarn (  RGVMoveRequest) returns (stream RgvWarnReply);
+	
+   rpc RGVTest (EmptyRequest) returns (stream MessageResponse);
+}
+message EmptyRequest{ string Message = 1; }
+message MessageResponse{ 
+	 string Message = 1; 
+}
+message RGVMoveRequest{
+
+	int32 X = 1;
+	int32 Y = 2;
+	int32 Z = 3;
+	string ActionName = 4;
+	//√∂æŸ¿‡–Õ£¨
+	ActionType  ActionTypeIn = 5;
+		int32 PLCID = 6;
+}
+enum ActionType {
+  ACTION_FAETEST = 0;
+  ACTION_WAREHOUSE_TAKE = 1;
+  ACTION_WAREHOUSE_PUT = 2;
+  ACTION_GATE_TAKE = 3;
+  ACTION_GATE_PUT = 4;
+  MOVETO_X=5;
+  MOVETO_Y=6;
+  MOVETO_Z=7;
+
+}
+message RGVCommonReply {
+     bool IsSuccess = 1;
+	 int32 Code = 2;
+	 string Message = 3;
+}
+message RgvWarnReply{
+     bool IsSuccess = 1;
+	 int32 Code = 2;
+	 string Message = 3;
+	 repeated bool WarnInfos =4;
+	 bytes Datas =5;
+}

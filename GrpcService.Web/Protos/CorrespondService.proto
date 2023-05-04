@@ -1,0 +1,18 @@
+﻿using System;
+ 
+syntax = "proto3";
+package My.Public;
+service CorrespondGrpcService {
+  rpc SendMsg(GrpcData) returns (GrpcResult);
+  rpc ReceiveDataFromServer(GrpcData) returns (stream GrpcData);
+}
+ 
+message GrpcData {
+  string Ip = 1;
+  int32 Port = 2;
+  string DataId = 3;
+  int32 DataPriority = 4;
+  string DataType = 5;
+  string Conntent = 6;
+  string NodeName = 7; 
+}
